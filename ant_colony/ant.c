@@ -174,8 +174,6 @@ bool ant_search( ant_t* ant )
 
 void ant_search_move( ant_t* ant )
 {
-	ant->hp -= ANT_MOVE_COST;
-
 	enum ant_dir dir = rand() % 8;
 
 	switch( dir )
@@ -277,11 +275,16 @@ void move_ant( ant_t* ant, int dir_x, int dir_y )
 	if( is_valid_tile( ant->x + dir_x, ant->y + dir_y ) )
 	{
 		// save pos before moving to allow world tile redraw
+		
 		ant->prev_x = ant->x;
 		ant->prev_y = ant->y;
 		
 		ant->x = ant->x + dir_x;
 		ant->y = ant->y + dir_y;
+		
+		// decrement ant's health on move
+		
+		ant->hp -= ANT_MOVE_COST;
 	}
 }
 
